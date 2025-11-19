@@ -1,0 +1,81 @@
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Claude Code
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.whl
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database & Test Data
+*.db
+*.sqlite
+*.sqlite3
+
+# CSV files (test data)
+*.csv
+test_*.csv
+demo_*.csv
+*_test.csv
+*_demo.csv
+
+# Logs
+*.log
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Node.js (for admin UI development)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Maturin
+.cargo/
+
+# Cache
+.cache/
+*.cache
+.fastembed_cache/

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Enricher - Admin</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100" x-data="ragAdmin()">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                🔍 RAG Enricher Admin
+            </h1>
+            <p class="text-gray-600">Manage your RAG knowledge base</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mb-6">
+            <div class="flex space-x-2 border-b border-gray-300">
+                <button
+                    @click="currentTab = 'collections'"
+                    :class="currentTab === 'collections' ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'"
+                    class="px-6 py-3 rounded-t-lg font-semibold transition"
+                >
+                    Collections
+                </button>
+                <button
+                    @click="currentTab = 'documents'"
+                    :class="currentTab === 'documents' ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'"
+                    class="px-6 py-3 rounded-t-lg font-semibold transition"
+                >
+                    Documents
+                </button>
+                <button
+                    @click="currentTab = 'search'"
+                    :class="currentTab === 'search' ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'"
+                    class="px-6 py-3 rounded-t-lg font-semibold transition"
+                >
+                    Search & Test
+                </button>
+            </div>
+        </div>
+
+        <!-- Collections Tab -->
+        <div x-show="currentTab === 'collections'" class="space-y-6">
+            <!-- Create Collection Form -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold mb-4">Create New Collection</h2>
+                <form @submit.prevent="createCollection" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Collection Name</label>
+                        <input
+                            type="text"
+                            x-model="newCollection.name"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="e.g., faq, knowledge-base"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Description (Optional)</label>
+                        <input
+                            type="text"
+                            x-model="newCollection.description"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="e.g., Frequently asked questions"
+                        >
+                    </div>
+                    <button
+                        type="submit"
+                        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+                    >
+                        Create Collection
+                    </button>
+                </form>
+            </div>
+
+            <!-- Collections List -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold">Collections</h2>
+                    <button
+                        @click="loadCollections"
+                        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition"
+                    >
+                        Refresh
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <template x-for="collection in collections" :key="collection.id">
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg" x-text="collection.name"></h3>
+                                    <p class="text-gray-600 text-sm" x-text="collection.description || 'No description'"></p>
+                                    <p class="text-gray-400 text-xs mt-2" x-text="'ID: ' + collection.id + ' • Created: ' + collection.created_at"></p>
+                                </div>
+                                <button
+                                    @click="deleteCollection(collection.name)"
+                                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                    <div x-show="collections.length === 0" class="text-center text-gray-500 py-8">
+                        No collections found. Create one to get started!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Tab -->
+        <div x-show="currentTab === 'documents'" class="space-y-6">
+            <!-- Add Document Form -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold mb-4">Add New Document</h2>
+                <form @submit.prevent="addDocument" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Collection</label>
+                        <select
+                            x-model="newDocument.collection"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            required
+                        >
+                            <option value="">Select a collection</option>
+                            <template x-for="collection in collections" :key="collection.id">
+                                <option :value="collection.name" x-text="collection.name"></option>
+                            </template>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                        <textarea
+                            x-model="newDocument.content"
+                            rows="4"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Enter document content..."
+                            required
+                        ></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Metadata (JSON, Optional)</label>
+                        <textarea
+                            x-model="newDocument.metadata"
+                            rows="2"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                            placeholder='{"category": "example", "priority": "high"}'
+                        ></textarea>
+                    </div>
+                    <button
+                        type="submit"
+                        class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+                    >
+                        Add Document
+                    </button>
+                </form>
+            </div>
+
+            <!-- Documents List -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold">Documents</h2>
+                    <div class="flex space-x-2">
+                        <select
+                            x-model="documentFilter.collection"
+                            @change="loadDocuments"
+                            class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        >
+                            <option value="">All Collections</option>
+                            <template x-for="collection in collections" :key="collection.id">
+                                <option :value="collection.name" x-text="collection.name"></option>
+                            </template>
+                        </select>
+                        <button
+                            @click="loadDocuments"
+                            class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition"
+                        >
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="space-y-3 max-h-96 overflow-y-auto">
+                    <template x-for="doc in documents" :key="doc.id">
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <p class="text-gray-800" x-text="doc.content"></p>
+                                    <div class="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                                        <span x-text="'ID: ' + doc.id"></span>
+                                        <span x-text="'Collection: ' + doc.collection_id"></span>
+                                        <span x-text="doc.created_at"></span>
+                                    </div>
+                                    <div x-show="doc.metadata" class="mt-2">
+                                        <code class="text-xs bg-gray-100 px-2 py-1 rounded" x-text="doc.metadata"></code>
+                                    </div>
+                                </div>
+                                <button
+                                    @click="deleteDocument(doc.id)"
+                                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition ml-4"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                    <div x-show="documents.length === 0" class="text-center text-gray-500 py-8">
+                        No documents found.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search & Test Tab -->
+        <div x-show="currentTab === 'search'" class="space-y-6">
+            <!-- Search Form -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold mb-4">Search & Test RAG</h2>
+                <form @submit.prevent="performSearch" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Query</label>
+                        <input
+                            type="text"
+                            x-model="searchQuery.q"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Enter your search query..."
+                            required
+                        >
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Collection</label>
+                            <select
+                                x-model="searchQuery.collection"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                                <option value="">All Collections</option>
+                                <template x-for="collection in collections" :key="collection.id">
+                                    <option :value="collection.name" x-text="collection.name"></option>
+                                </template>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Top K</label>
+                            <input
+                                type="number"
+                                x-model="searchQuery.top_k"
+                                min="1"
+                                max="20"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Threshold</label>
+                            <input
+                                type="number"
+                                x-model="searchQuery.threshold"
+                                min="0"
+                                max="1"
+                                step="0.1"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button
+                            type="submit"
+                            class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+                        >
+                            🔍 Search
+                        </button>
+                        <button
+                            type="button"
+                            @click="performEnrich"
+                            class="flex-1 bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+                        >
+                            ✨ Enrich (RAG)
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Search Results -->
+            <div x-show="searchResults.length > 0" class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold mb-4">
+                    Search Results
+                    <span class="text-sm font-normal text-gray-600" x-text="'(' + searchResults.length + ' found)'"></span>
+                </h2>
+                <div class="space-y-3">
+                    <template x-for="(result, index) in searchResults" :key="index">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-start justify-between mb-2">
+                                <span class="text-sm font-semibold text-blue-600" x-text="'Score: ' + result.score.toFixed(3)"></span>
+                                <span class="text-xs text-gray-500" x-text="result.collection"></span>
+                            </div>
+                            <p class="text-gray-800 mb-2" x-text="result.content"></p>
+                            <div x-show="result.metadata" class="mt-2">
+                                <code class="text-xs bg-gray-100 px-2 py-1 rounded" x-text="JSON.stringify(result.metadata)"></code>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Enrich Context -->
+            <div x-show="enrichContext" class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold mb-4">Generated Context (for LLM)</h2>
+                <div class="bg-gray-50 border border-gray-300 rounded-lg p-4">
+                    <pre class="whitespace-pre-wrap text-sm text-gray-800" x-text="enrichContext"></pre>
+                </div>
+                <p class="text-sm text-gray-600 mt-4">
+                    💡 This context can be passed to your LLM (OpenAI, Claude, etc.) for enhanced responses.
+                </p>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div
+            x-show="statusMessage"
+            x-transition
+            class="fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg"
+            :class="statusType === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'"
+        >
+            <span x-text="statusMessage"></span>
+        </div>
+    </div>
+
+    <script>
+        function ragAdmin() {
+            return {
+                currentTab: 'collections',
+                collections: [],
+                documents: [],
+                searchResults: [],
+                enrichContext: '',
+                statusMessage: '',
+                statusType: 'success',
+
+                newCollection: {
+                    name: '',
+                    description: ''
+                },
+
+                newDocument: {
+                    collection: '',
+                    content: '',
+                    metadata: ''
+                },
+
+                documentFilter: {
+                    collection: ''
+                },
+
+                searchQuery: {
+                    q: '',
+                    collection: '',
+                    top_k: 5,
+                    threshold: 0.0
+                },
+
+                async init() {
+                    await this.loadCollections();
+                    await this.loadDocuments();
+                },
+
+                async loadCollections() {
+                    try {
+                        const res = await fetch('/api/collections');
+                        const data = await res.json();
+                        if (data.success) {
+                            this.collections = data.data;
+                        }
+                    } catch (e) {
+                        this.showStatus('Failed to load collections', 'error');
+                    }
+                },
+
+                async createCollection() {
+                    try {
+                        const res = await fetch('/api/collections', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.newCollection)
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            this.showStatus('Collection created!', 'success');
+                            this.newCollection = { name: '', description: '' };
+                            await this.loadCollections();
+                        } else {
+                            this.showStatus(data.error, 'error');
+                        }
+                    } catch (e) {
+                        this.showStatus('Failed to create collection', 'error');
+                    }
+                },
+
+                async deleteCollection(name) {
+                    if (!confirm(`Delete collection "${name}"?`)) return;
+                    try {
+                        const res = await fetch(`/api/collections/${name}`, { method: 'DELETE' });
+                        const data = await res.json();
+                        if (data.success) {
+                            this.showStatus('Collection deleted!', 'success');
+                            await this.loadCollections();
+                        } else {
+                            this.showStatus(data.error, 'error');
+                        }
+                    } catch (e) {
+                        this.showStatus('Failed to delete collection', 'error');
+                    }
+                },
+
+                async loadDocuments() {
+                    try {
+                        const params = new URLSearchParams();
+                        if (this.documentFilter.collection) {
+                            params.append('collection', this.documentFilter.collection);
+                        }
+                        params.append('limit', '50');
+
+                        const res = await fetch(`/api/documents?${params}`);
+                        const data = await res.json();
+                        if (data.success) {
+                            this.documents = data.data;
+                        }
+                    } catch (e) {
+                        this.showStatus('Failed to load documents', 'error');
+                    }
+                },
+
+                async addDocument() {
+                    try {
+                        const payload = {
+                            content: this.newDocument.content,
+                            collection: this.newDocument.collection
+                        };
+
+                        if (this.newDocument.metadata) {
+                            try {
+                                payload.metadata = JSON.parse(this.newDocument.metadata);
+                            } catch (e) {
+                                this.showStatus('Invalid JSON in metadata', 'error');
+                                return;
+                            }
+                        }
+
+                        const res = await fetch('/api/documents', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            this.showStatus('Document added!', 'success');
+                            this.newDocument = { collection: '', content: '', metadata: '' };
+                            await this.loadDocuments();
+                        } else {
+                            this.showStatus(data.error, 'error');
+                        }
+                    } catch (e) {
+                        this.showStatus('Failed to add document', 'error');
+                    }
+                },
+
+                async deleteDocument(id) {
+                    if (!confirm(`Delete document ${id}?`)) return;
+                    try {
+                        const res = await fetch(`/api/documents/${id}`, { method: 'DELETE' });
+                        const data = await res.json();
+                        if (data.success) {
+                            this.showStatus('Document deleted!', 'success');
+                            await this.loadDocuments();
+                        } else {
+                            this.showStatus(data.error, 'error');
+                        }
+                    } catch (e) {
+                        this.showStatus('Failed to delete document', 'error');
+                    }
+                },
+
+                async performSearch() {
+                    try {
+                        const params = new URLSearchParams({ q: this.searchQuery.q });
+                        if (this.searchQuery.collection) params.append('collection', this.searchQuery.collection);
+                        if (this.searchQuery.top_k) params.append('top_k', this.searchQuery.top_k);
+                        if (this.searchQuery.threshold) params.append('threshold', this.searchQuery.threshold);
+
+                        const res = await fetch(`/api/search?${params}`);
+                        const data = await res.json();
+                        if (data.success) {
+                            this.searchResults = data.data.results;
+                            this.enrichContext = '';
+                            this.showStatus(`Found ${this.searchResults.length} results`, 'success');
+                        } else {
+                            this.showStatus(data.error, 'error');
+                        }
+                    } catch (e) {
+                        this.showStatus('Search failed', 'error');
+                    }
+                },
+
+                async performEnrich() {
+                    try {
+                        const params = new URLSearchParams({ q: this.searchQuery.q });
+                        if (this.searchQuery.collection) params.append('collection', this.searchQuery.collection);
+                        if (this.searchQuery.top_k) params.append('top_k', this.searchQuery.top_k);
+
+                        const res = await fetch(`/api/enrich?${params}`);
+                        const data = await res.json();
+                        if (data.success) {
+                            this.searchResults = data.data.sources;
+                            this.enrichContext = data.data.context;
+                            this.showStatus('Context generated!', 'success');
+                        } else {
+                            this.showStatus(data.error, 'error');
+                        }
+                    } catch (e) {
+                        this.showStatus('Enrich failed', 'error');
+                    }
+                },
+
+                showStatus(message, type = 'success') {
+                    this.statusMessage = message;
+                    this.statusType = type;
+                    setTimeout(() => {
+                        this.statusMessage = '';
+                    }, 3000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

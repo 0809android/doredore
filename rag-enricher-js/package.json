@@ -1,0 +1,48 @@
+{
+  "name": "rag-enricher",
+  "version": "0.1.0",
+  "description": "Lightweight RAG library with admin UI - Node.js bindings",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "keywords": [
+    "rag",
+    "llm",
+    "embeddings",
+    "vector-search",
+    "ai",
+    "napi-rs",
+    "rust"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14"
+  },
+  "napi": {
+    "name": "rag-enricher",
+    "triples": {
+      "defaults": true,
+      "additional": [
+        "aarch64-apple-darwin",
+        "x86_64-apple-darwin",
+        "x86_64-unknown-linux-gnu",
+        "aarch64-unknown-linux-gnu",
+        "x86_64-pc-windows-msvc"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "prepublishOnly": "napi prepublish -t npm",
+    "test": "node test.js",
+    "version": "napi version"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/rag-enricher"
+  },
+  "packageManager": "npm@10.2.4"
+}
