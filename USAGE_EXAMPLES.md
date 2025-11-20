@@ -1,14 +1,14 @@
-# RAG Enricher - 使用例（全言語）
+# doredore - 使用例（全言語）
 
 ## Python
 
 ### 基本的な使い方
 ```python
-from rag_enricher import RAGEnricher
+from doredore import Doredore
 import openai
 
 # 初期化
-rag = RAGEnricher("./knowledge.db")
+rag = Doredore("./knowledge.db")
 
 # コレクション作成
 rag.create_collection("faq", "よくある質問")
@@ -43,10 +43,10 @@ print(response.choices[0].message.content)
 ### FastAPI 統合
 ```python
 from fastapi import FastAPI
-from rag_enricher import RAGEnricher
+from doredore import Doredore
 
 app = FastAPI()
-rag = RAGEnricher("./knowledge.db")
+rag = Doredore("./knowledge.db")
 
 @app.post("/chat")
 async def chat(question: str):
@@ -71,11 +71,11 @@ async def startup():
 
 ### 基本的な使い方 (Node.js)
 ```typescript
-import { RAGEnricher } from 'rag-enricher';
+import { Doredore } from 'doredore';
 import OpenAI from 'openai';
 
 // 初期化
-const rag = new RAGEnricher('./knowledge.db');
+const rag = new Doredore('./knowledge.db');
 
 // コレクション作成
 await rag.createCollection('faq', 'よくある質問');
@@ -114,10 +114,10 @@ console.log(response.choices[0].message.content);
 ### Next.js App Router - API Route
 ```typescript
 // app/api/chat/route.ts
-import { RAGEnricher } from 'rag-enricher';
+import { Doredore } from 'doredore';
 import { NextRequest, NextResponse } from 'next/server';
 
-const rag = new RAGEnricher('./knowledge.db');
+const rag = new Doredore('./knowledge.db');
 
 export async function POST(request: NextRequest) {
   const { question } = await request.json();
@@ -137,10 +137,10 @@ export async function POST(request: NextRequest) {
 ### Next.js Server Component
 ```typescript
 // app/knowledge/page.tsx
-import { RAGEnricher } from 'rag-enricher';
+import { Doredore } from 'doredore';
 
 export default async function KnowledgePage() {
-  const rag = new RAGEnricher('./knowledge.db');
+  const rag = new Doredore('./knowledge.db');
 
   // サーバーサイドで検索
   const results = await rag.search('永代供養', { topK: 5 });
@@ -162,10 +162,10 @@ export default async function KnowledgePage() {
 ### Express.js 統合
 ```javascript
 import express from 'express';
-import { RAGEnricher } from 'rag-enricher';
+import { Doredore } from 'doredore';
 
 const app = express();
-const rag = new RAGEnricher('./knowledge.db');
+const rag = new Doredore('./knowledge.db');
 
 app.post('/chat', async (req, res) => {
   const { question } = req.body;
@@ -192,7 +192,7 @@ app.listen(3000);
 
 ### 基本的な使い方 (Ruby)
 ```ruby
-require 'rag_enricher'
+require 'doredore'
 
 # 初期化
 rag = RagEnricher.new('./knowledge.db')
@@ -354,25 +354,25 @@ end
 
 ### Python
 ```python
-from rag_enricher import RAGEnricher
+from doredore import Doredore
 
-rag = RAGEnricher("./knowledge.db")
+rag = Doredore("./knowledge.db")
 rag.start_admin(port=8080, host="0.0.0.0")
 print("管理画面: http://localhost:8080")
 ```
 
 ### Node.js
 ```typescript
-import { RAGEnricher } from 'rag-enricher';
+import { Doredore } from 'doredore';
 
-const rag = new RAGEnricher('./knowledge.db');
+const rag = new Doredore('./knowledge.db');
 await rag.startAdmin({ port: 8080, host: '0.0.0.0' });
 console.log('管理画面: http://localhost:8080');
 ```
 
 ### Ruby
 ```ruby
-require 'rag_enricher'
+require 'doredore'
 
 rag = RagEnricher.new('./knowledge.db')
 rag.start_admin(port: 8080, host: '0.0.0.0')
@@ -385,7 +385,7 @@ puts '管理画面: http://localhost:8080'
 
 ### Python
 ```python
-rag = RAGEnricher("./knowledge.db")
+rag = Doredore("./knowledge.db")
 rag.create_collection("faq", "FAQ")
 
 # CSV インポート
@@ -400,7 +400,7 @@ print(f"{count}件のデータをインポートしました")
 
 ### Node.js
 ```typescript
-const rag = new RAGEnricher('./knowledge.db');
+const rag = new Doredore('./knowledge.db');
 await rag.createCollection('faq', 'FAQ');
 
 // CSV インポート
@@ -476,11 +476,11 @@ result = rag.enrich('質問')
 
 ```bash
 # Python
-pip install rag-enricher
+pip install doredore
 
 # Node.js / Next.js
-npm install rag-enricher
+npm install doredore
 
 # Ruby / Rails
-gem install rag-enricher
+gem install doredore
 ```

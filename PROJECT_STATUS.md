@@ -1,4 +1,4 @@
-# RAG Enricher - プロジェクト進捗状況
+# doredore - プロジェクト進捗状況
 
 ## 📊 Phase 1 (MVP - v0.1.0) の進捗
 
@@ -33,7 +33,7 @@
 #### 3. Python バインディング (100%)
 - ✅ PyO3 バインディング実装
 - ✅ Python型ラッパー
-  - `PyRAGEnricher`
+  - `PyDoredore`
   - `PyCollection`
   - `PyDocument`
   - `PySearchResult`
@@ -69,7 +69,7 @@
 ## 📁 プロジェクト構造
 
 ```
-rag-enricher/
+doredore/
 ├── Cargo.toml                     ✅ Workspace設定
 ├── README.md                      ✅ プロジェクト概要
 ├── TODO.md                        ✅ タスク管理
@@ -77,7 +77,7 @@ rag-enricher/
 ├── LICENSE                        ✅ MITライセンス
 ├── .gitignore                     ✅
 │
-├── rag-enricher-core/             ✅ Rustコアライブラリ
+├── doredore-core/             ✅ Rustコアライブラリ
 │   ├── Cargo.toml
 │   └── src/
 │       ├── lib.rs                 ✅
@@ -90,7 +90,7 @@ rag-enricher/
 │           ├── search.rs          ✅
 │           └── enricher.rs        ✅
 │
-├── rag-enricher-py/               ✅ Pythonバインディング
+├── doredore-py/               ✅ Pythonバインディング
 │   ├── Cargo.toml                 ✅
 │   ├── pyproject.toml             ✅
 │   └── src/
@@ -110,14 +110,14 @@ rag-enricher/
 ### 即座に実行可能
 1. **ビルドテスト**
    ```bash
-   cd rag-enricher-py
+   cd doredore-py
    maturin develop
    python ../examples/python/basic.py
    ```
 
 2. **ユニットテスト実行**
    ```bash
-   cargo test -p rag-enricher-core
+   cargo test -p doredore-core
    ```
 
 3. **サンプル実行**
@@ -156,7 +156,7 @@ rag-enricher/
 - [x] バッチ処理
 
 ### Python API
-- [x] `RAGEnricher` クラス
+- [x] `Doredore` クラス
 - [x] コレクション管理 (CRUD)
 - [x] ドキュメント管理 (CRUD)
 - [x] 検索・エンリッチ
@@ -189,7 +189,7 @@ rag-enricher/
 ### 基本フロー
 ```python
 # 1. 初期化
-rag = RAGEnricher("./db.db")
+rag = Doredore("./db.db")
 
 # 2. コレクション作成
 rag.create_collection("faq")

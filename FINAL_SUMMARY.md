@@ -1,4 +1,4 @@
-# RAG Enricher - 最終完了報告
+# doredore - 最終完了報告
 
 ## 🎊 プロジェクト完全完了！
 
@@ -10,7 +10,7 @@
 
 ## 📋 エグゼクティブサマリー
 
-**RAG Enricher**は、Rustで書かれた高速でシンプルなRAG（Retrieval-Augmented Generation）ライブラリです。
+**doredore**は、Rustで書かれた高速でシンプルなRAG（Retrieval-Augmented Generation）ライブラリです。
 
 ### 主な成果
 
@@ -68,7 +68,7 @@
   - C-ABI + FFI
   - Ruby FFIラッパー
   - サンプルコード2種類
-  - ビルド成功: librag_enricher_rb.dylib (19MB)
+  - ビルド成功: libdoredore_rb.dylib (19MB)
 
 **統合例:**
 - Next.js API Routes
@@ -128,7 +128,7 @@
    - x86_64: 9.3MB
 
 ✅ Ruby Library:
-   - librag_enricher_rb.dylib: 19MB
+   - libdoredore_rb.dylib: 19MB
 
 ✅ REST API Server:
    - rag-server: 21MB
@@ -231,9 +231,9 @@
 
 ### Python
 ```python
-from rag_enricher import PyRAGEnricher as RAGEnricher
+from doredore import PyDoredore as Doredore
 
-rag = RAGEnricher("./knowledge.db")
+rag = Doredore("./knowledge.db")
 rag.create_collection("faq")
 rag.add_document("内容...", collection="faq")
 result = rag.enrich("質問", collection="faq", top_k=3)
@@ -242,9 +242,9 @@ print(result.context)  # LLMに渡すコンテキスト
 
 ### Node.js
 ```javascript
-const { RAGEnricher } = require('rag-enricher');
+const { Doredore } = require('doredore');
 
-const rag = new RAGEnricher('./knowledge.db');
+const rag = new Doredore('./knowledge.db');
 rag.createCollection('faq');
 rag.addDocument('内容...', 'faq');
 const result = rag.enrich('質問', 'faq', null, 3);
@@ -253,9 +253,9 @@ console.log(result.context);
 
 ### Ruby
 ```ruby
-require 'rag_enricher'
+require 'doredore'
 
-rag = RAGEnricher::Client.new('./knowledge.db')
+rag = Doredore::Client.new('./knowledge.db')
 rag.create_collection('faq')
 rag.add_document('内容...', collection: 'faq')
 result = rag.enrich('質問', collection: 'faq', top_k: 3)
@@ -282,7 +282,7 @@ http://localhost:3000
 
 ### Docker
 ```bash
-cd rag-enricher-server
+cd doredore-server
 docker-compose up -d
 ```
 
@@ -293,7 +293,7 @@ docker-compose up -d
 
 ### Python Package
 ```bash
-pip install target/wheels/rag_enricher-*.whl
+pip install target/wheels/doredore-*.whl
 ```
 
 ---
@@ -325,7 +325,7 @@ pip install target/wheels/rag_enricher-*.whl
 
 3. **SQLite スレッドセーフティ**
    - `Connection`は`Sync`を実装していない
-   - `Arc<Mutex<RAGEnricher>>`で解決
+   - `Arc<Mutex<Doredore>>`で解決
 
 4. **Ruby FFI複雑性**
    - C-ABI手動実装
@@ -419,7 +419,7 @@ pip install target/wheels/rag_enricher-*.whl
 
 ## 🎉 結論
 
-**RAG Enricher**は、以下を達成しました：
+**doredore**は、以下を達成しました：
 
 ✅ **マルチ言語対応**: Python, Node.js, Ruby, REST API
 ✅ **Production-Ready**: Docker, スレッドセーフ, エラーハンドリング
@@ -434,9 +434,9 @@ pip install target/wheels/rag_enricher-*.whl
 
 ## 📞 連絡先
 
-- **Repository**: https://github.com/yourusername/rag-enricher
-- **Issues**: https://github.com/yourusername/rag-enricher/issues
-- **Discussions**: https://github.com/yourusername/rag-enricher/discussions
+- **Repository**: https://github.com/yourusername/doredore
+- **Issues**: https://github.com/yourusername/doredore/issues
+- **Discussions**: https://github.com/yourusername/doredore/discussions
 
 ---
 
@@ -444,4 +444,4 @@ pip install target/wheels/rag_enricher-*.whl
 **最終バージョン**: v0.3.0
 **ステータス**: ✅ Production-Ready
 
-**Thank you for using RAG Enricher!** 🚀
+**Thank you for using doredore!** 🚀

@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 =begin
-RAG Enricher - Basic Ruby Example
+doredore - Basic Ruby Example
 
-This example demonstrates the basic usage of RAG Enricher in Ruby:
+This example demonstrates the basic usage of doredore in Ruby:
 - Creating a collection
 - Adding documents
 - Searching for similar documents
@@ -17,19 +17,19 @@ Usage:
   ruby basic.rb
 =end
 
-require_relative '../../rag-enricher-rb/lib/rag_enricher'
+require_relative '../../doredore-rb/lib/doredore'
 
 puts '=' * 60
-puts 'RAG Enricher - Basic Ruby Example'
+puts 'doredore - Basic Ruby Example'
 puts '=' * 60
 puts
 
 # ============================================================================
-# 1. Initialize RAGEnricher
+# 1. Initialize Doredore
 # ============================================================================
 
-puts '1. Initializing RAGEnricher...'
-rag = RAGEnricher::Client.new(
+puts '1. Initializing Doredore...'
+rag = Doredore::Client.new(
   './knowledge.db',
   model: 'bge-small-en-v1.5',  # Fast, small model (384 dimensions)
   cache_dir: nil                # Use default cache directory

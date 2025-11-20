@@ -1,4 +1,4 @@
-# RAG Enricher - Phase 1 (MVP) 完了報告
+# doredore - Phase 1 (MVP) 完了報告
 
 ## 🎉 プロジェクト完了！
 
@@ -12,7 +12,7 @@
 
 ### ✅ 完成した機能
 
-#### 1. **Rustコアライブラリ** (`rag-enricher-core`)
+#### 1. **Rustコアライブラリ** (`doredore-core`)
 - **SQLiteデータベース操作** - 完全実装
   - コレクション管理 (CRUD)
   - ドキュメント管理 (CRUD)
@@ -35,9 +35,9 @@
   - エクスポート機能
   - カラムマッピング
 
-#### 2. **Pythonバインディング** (`rag-enricher-py`)
+#### 2. **Pythonバインディング** (`doredore-py`)
 - **PyO3による完全なPython API**
-  - `RAGEnricher` クラス
+  - `Doredore` クラス
   - すべてのCRUD操作
   - 検索・エンリッチ機能
   - CSV操作
@@ -75,7 +75,7 @@
 ### Pythonテスト
 ```
 ✅ モジュールインポート: 成功
-✅ RAGEnricher初期化: 成功
+✅ Doredore初期化: 成功
 ✅ コレクション作成: 成功
 ✅ ドキュメント追加: 成功
 ✅ 検索機能: 成功 (スコア: 0.737)
@@ -101,7 +101,7 @@
 
 ### プロジェクト構造
 ```
-rag-enricher/
+doredore/
 ├── Cargo.toml                      ✅ Workspace設定
 ├── README.md                       ✅ (450行)
 ├── TODO.md                         ✅ (580行)
@@ -111,7 +111,7 @@ rag-enricher/
 ├── LICENSE                         ✅ MIT
 ├── .gitignore                      ✅
 │
-├── rag-enricher-core/              ✅ 800行
+├── doredore-core/              ✅ 800行
 │   ├── src/
 │   │   ├── lib.rs
 │   │   ├── error.rs
@@ -124,7 +124,7 @@ rag-enricher/
 │   │       └── enricher.rs (280行)
 │   └── tests/
 │
-├── rag-enricher-py/                ✅ 350行
+├── doredore-py/                ✅ 350行
 │   ├── src/
 │   │   └── lib.rs (PyO3バインディング)
 │   ├── Cargo.toml
@@ -140,8 +140,8 @@ rag-enricher/
 ├── test_simple.py                  ✅ テストスクリプト
 │
 └── target/wheels/                  ✅
-    ├── rag_enricher-*-arm64.whl    (8.6MB)
-    └── rag_enricher-*-x86_64.whl   (8.5MB)
+    ├── doredore-*-arm64.whl    (8.6MB)
+    └── doredore-*-x86_64.whl   (8.5MB)
 ```
 
 ### コード統計
@@ -170,7 +170,7 @@ rag-enricher/
 - [x] 複数コレクション検索
 
 ### Python API
-- [x] `RAGEnricher` クラス
+- [x] `Doredore` クラス
 - [x] コレクション管理 (CRUD)
 - [x] ドキュメント管理 (CRUD)
 - [x] 検索機能
@@ -207,10 +207,10 @@ rag-enricher/
 
 ### 基本的な使い方
 ```python
-from rag_enricher import PyRAGEnricher as RAGEnricher
+from doredore import PyDoredore as Doredore
 
 # 初期化
-rag = RAGEnricher("./knowledge.db")
+rag = Doredore("./knowledge.db")
 
 # データ追加
 rag.create_collection("faq")
@@ -369,7 +369,7 @@ rag.export_csv("export.csv", collection="faq")
 
 ## 📌 まとめ
 
-**RAG Enricher Phase 1 (MVP) は完全に実装され、全ての機能が正常に動作しています。**
+**doredore Phase 1 (MVP) は完全に実装され、全ての機能が正常に動作しています。**
 
 ### ✅ 達成したこと
 1. Rustコアライブラリの完全実装
@@ -387,7 +387,7 @@ rag.export_csv("export.csv", collection="faq")
 
 ## 🔗 リソース
 
-- **プロジェクト**: `rag-enricher`
+- **プロジェクト**: `doredore`
 - **ドキュメント**: `README.md`, `TODO.md`, `USAGE_EXAMPLES.md`
 - **サンプル**: `examples/python/`
 - **Wheel**: `target/wheels/`

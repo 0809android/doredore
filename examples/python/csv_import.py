@@ -1,12 +1,12 @@
 """
-RAG Enricher - CSV インポート/エクスポート サンプル
+doredore - CSV インポート/エクスポート サンプル
 
 CSVファイルからナレッジをインポートし、
 検索・エクスポート機能をデモンストレーションします。
 """
 
 import csv
-from rag_enricher import PyRAGEnricher as RAGEnricher
+from doredore import PyDoredore as Doredore
 
 
 def create_sample_csv(filename: str):
@@ -54,7 +54,7 @@ def create_sample_csv(filename: str):
     print(f"✅ {len(data)} 件のデータを含むCSVを作成\n")
 
 
-def import_csv_demo(rag: RAGEnricher):
+def import_csv_demo(rag: Doredore):
     """CSVインポートのデモ"""
     print("=" * 60)
     print("📥 CSV インポート デモ")
@@ -95,7 +95,7 @@ def import_csv_demo(rag: RAGEnricher):
     print()
 
 
-def search_demo(rag: RAGEnricher):
+def search_demo(rag: Doredore):
     """検索のデモ"""
     print("=" * 60)
     print("🔍 検索デモ")
@@ -126,7 +126,7 @@ def search_demo(rag: RAGEnricher):
         print()
 
 
-def export_csv_demo(rag: RAGEnricher):
+def export_csv_demo(rag: Doredore):
     """CSVエクスポートのデモ"""
     print("=" * 60)
     print("📤 CSV エクスポート デモ")
@@ -157,7 +157,7 @@ def export_csv_demo(rag: RAGEnricher):
         print(f"❌ エクスポートエラー: {e}\n")
 
 
-def enrich_demo(rag: RAGEnricher):
+def enrich_demo(rag: Doredore):
     """エンリッチのデモ"""
     print("=" * 60)
     print("✨ エンリッチ デモ (LLM へのコンテキスト生成)")
@@ -186,11 +186,11 @@ def enrich_demo(rag: RAGEnricher):
 
 
 def main():
-    print("🚀 RAG Enricher - CSV インポート/エクスポート デモ")
+    print("🚀 doredore - CSV インポート/エクスポート デモ")
     print()
 
     # 初期化
-    rag = RAGEnricher(
+    rag = Doredore(
         db_path="./csv_demo.db",
         model="bge-small-en-v1.5"
     )

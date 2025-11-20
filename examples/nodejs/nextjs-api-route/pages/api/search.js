@@ -1,7 +1,7 @@
 /**
  * Next.js API Route Example - RAG Search Endpoint
  *
- * This API route provides a search endpoint that uses RAG Enricher
+ * This API route provides a search endpoint that uses doredore
  * to search for relevant documents and return enriched context.
  *
  * Usage:
@@ -12,21 +12,21 @@
  * or: app/api/search/route.js (Next.js 13+ App Router)
  */
 
-import { RAGEnricher } from 'rag-enricher';
+import { Doredore } from 'doredore';
 import path from 'path';
 
-// Initialize RAGEnricher (singleton pattern)
+// Initialize Doredore (singleton pattern)
 let ragInstance = null;
 
 function getRAG() {
   if (!ragInstance) {
     const dbPath = path.join(process.cwd(), 'data', 'knowledge.db');
-    ragInstance = new RAGEnricher(
+    ragInstance = new Doredore(
       dbPath,
       'bge-small-en-v1.5',
       null
     );
-    console.log('✅ RAGEnricher initialized');
+    console.log('✅ Doredore initialized');
   }
   return ragInstance;
 }

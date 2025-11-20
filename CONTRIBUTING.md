@@ -1,6 +1,6 @@
-# Contributing to RAG Enricher
+# Contributing to doredore
 
-Thank you for your interest in contributing to RAG Enricher! 🎉
+Thank you for your interest in contributing to doredore! 🎉
 
 ## Getting Started
 
@@ -16,39 +16,39 @@ Thank you for your interest in contributing to RAG Enricher! 🎉
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/rag-enricher.git
-cd rag-enricher
+git clone https://github.com/yourusername/doredore.git
+cd doredore
 
 # Build the Rust core
 cargo build
 
 # Build Python bindings
-cd rag-enricher-py
+cd doredore-py
 maturin develop
 
 # Build Node.js bindings (requires Rust 1.91)
-cd ../rag-enricher-js
+cd ../doredore-js
 npm install
 npm run build
 
 # Build Ruby bindings
-cd ../rag-enricher-rb
+cd ../doredore-rb
 cargo build --release
 
 # Build REST API server
-cd ../rag-enricher-server
+cd ../doredore-server
 cargo build --release
 ```
 
 ## Project Structure
 
 ```
-rag-enricher/
-├── rag-enricher-core/      # Rust core library
-├── rag-enricher-py/        # Python bindings (PyO3)
-├── rag-enricher-js/        # Node.js bindings (NAPI-rs)
-├── rag-enricher-rb/        # Ruby bindings (FFI)
-├── rag-enricher-server/    # REST API server (Axum)
+doredore/
+├── doredore-core/      # Rust core library
+├── doredore-py/        # Python bindings (PyO3)
+├── doredore-js/        # Node.js bindings (NAPI-rs)
+├── doredore-rb/        # Ruby bindings (FFI)
+├── doredore-server/    # REST API server (Axum)
 └── examples/               # Example code
 ```
 
@@ -87,11 +87,11 @@ rag-enricher/
    cargo test
 
    # Run Python tests
-   cd rag-enricher-py
+   cd doredore-py
    python test_simple.py
 
    # Run server tests
-   cd ../rag-enricher-server
+   cd ../doredore-server
    cargo test
    ```
 
@@ -129,19 +129,19 @@ rag-enricher/
 
 ```bash
 # Rust core tests
-cargo test --package rag-enricher-core
+cargo test --package doredore-core
 
 # Python integration tests
-cd rag-enricher-py
+cd doredore-py
 python test_simple.py
 python examples/python/basic.py
 
 # Server tests
-cd ../rag-enricher-server
+cd ../doredore-server
 cargo test
 
 # Ruby tests (manual for now)
-cd ../rag-enricher-rb
+cd ../doredore-rb
 ruby examples/ruby/basic.rb
 ```
 
@@ -175,7 +175,7 @@ ruby examples/ruby/basic.rb
 
 ## License
 
-By contributing to RAG Enricher, you agree that your contributions will be licensed under the MIT License.
+By contributing to doredore, you agree that your contributions will be licensed under the MIT License.
 
 ## Questions?
 

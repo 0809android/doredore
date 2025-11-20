@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * RAG Enricher + OpenAI Integration Example
+ * doredore + OpenAI Integration Example
  *
- * This example shows how to use RAG Enricher with OpenAI's GPT models
+ * This example shows how to use doredore with OpenAI's GPT models
  * to build a question-answering system with retrieval-augmented generation.
  *
  * Requirements:
@@ -10,7 +10,7 @@
  *   export OPENAI_API_KEY="your-api-key-here"
  */
 
-const { RAGEnricher } = require('rag-enricher');
+const { Doredore } = require('doredore');
 
 // Check if OpenAI is available
 let OpenAI;
@@ -30,18 +30,18 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 console.log('='.repeat(60));
-console.log('RAG Enricher + OpenAI Integration Example');
+console.log('doredore + OpenAI Integration Example');
 console.log('='.repeat(60));
 console.log();
 
 // ============================================================================
-// 1. Initialize RAGEnricher and OpenAI
+// 1. Initialize Doredore and OpenAI
 // ============================================================================
 
 console.log('1. Initializing...');
-const rag = new RAGEnricher('./knowledge.db', 'bge-small-en-v1.5');
+const rag = new Doredore('./knowledge.db', 'bge-small-en-v1.5');
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-console.log('   ✅ RAGEnricher and OpenAI initialized!');
+console.log('   ✅ Doredore and OpenAI initialized!');
 console.log();
 
 // ============================================================================

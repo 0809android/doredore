@@ -1,19 +1,19 @@
 """
-RAG Enricher - 基本的な使い方
+doredore - 基本的な使い方
 
 このサンプルでは以下を実演します:
-- RAGEnricher の初期化
+- Doredore の初期化
 - コレクションの作成
 - ドキュメントの追加
 - 検索とエンリッチ
 """
 
-from rag_enricher import PyRAGEnricher as RAGEnricher
+from doredore import PyDoredore as Doredore
 
 def main():
-    # 1. RAGEnricher を初期化
-    print("🚀 RAG Enricher を初期化中...")
-    rag = RAGEnricher(
+    # 1. Doredore を初期化
+    print("🚀 doredore を初期化中...")
+    rag = Doredore(
         db_path="./knowledge.db",
         model="bge-small-en-v1.5",  # 軽量モデル (384次元)
         cache_dir=None  # デフォルトキャッシュディレクトリを使用

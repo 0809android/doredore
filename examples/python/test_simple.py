@@ -1,33 +1,33 @@
 #!/usr/bin/env python3
 """
-RAG Enricher - 簡単な動作テスト
+doredore - 簡単な動作テスト
 
 このスクリプトは、ビルドされたライブラリが正しく動作するかテストします。
 """
 
 print("=" * 60)
-print("RAG Enricher - 動作テスト")
+print("doredore - 動作テスト")
 print("=" * 60)
 print()
 
 # Step 1: インポートテスト
 print("1. モジュールのインポート...")
 try:
-    from rag_enricher import PyRAGEnricher as RAGEnricher
+    from doredore import PyDoredore as Doredore
     print("   ✅ インポート成功！")
 except ImportError as e:
     print(f"   ❌ インポート失敗: {e}")
     print()
     print("注意: wheelファイルをインストールする必要があります:")
-    print("  pip3 install target/wheels/rag_enricher-*.whl")
+    print("  pip3 install target/wheels/doredore-*.whl")
     exit(1)
 
 print()
 
 # Step 2: 初期化テスト
-print("2. RAGEnricher の初期化...")
+print("2. Doredore の初期化...")
 try:
-    rag = RAGEnricher(
+    rag = Doredore(
         db_path="./test_knowledge.db",
         model="bge-small-en-v1.5",
         cache_dir=None
@@ -53,7 +53,7 @@ print()
 print("4. ドキュメント追加...")
 try:
     doc_id = rag.add_document(
-        content="これはテストドキュメントです。RAG Enricherの動作確認用です。",
+        content="これはテストドキュメントです。doredoreの動作確認用です。",
         collection="test"
     )
     print(f"   ✅ ドキュメント追加成功！(ID: {doc_id})")
@@ -88,7 +88,7 @@ print()
 print("6. エンリッチ（RAGメイン機能）テスト...")
 try:
     enrich_result = rag.enrich(
-        query="RAG Enricherについて教えて",
+        query="doredoreについて教えて",
         collection="test",
         top_k=1
     )

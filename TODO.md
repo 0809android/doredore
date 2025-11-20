@@ -1,4 +1,4 @@
-# RAG Enricher - 実装TODO
+# doredore - 実装TODO
 
 ## 🎯 アーキテクチャ概要
 
@@ -15,7 +15,7 @@
 │              │               │             │            │
 ├──────────────┴───────────────┴─────────────┴────────────┤
 │                                                          │
-│              Rust Core Library (rag-enricher-core)       │
+│              Rust Core Library (doredore-core)       │
 │                                                          │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐              │
 │  │ Database │  │Embedding │  │  Search  │              │
@@ -29,26 +29,26 @@
 ```
 
 ### 配布形式
-- **Python**: `pip install rag-enricher` (PyPI)
-- **Node.js/Next.js**: `npm install rag-enricher` (npm)
-- **Ruby/Rails**: `gem install rag-enricher` (RubyGems)
-- **Standalone**: `cargo install rag-enricher-server` (Docker/Binary)
+- **Python**: `pip install doredore` (PyPI)
+- **Node.js/Next.js**: `npm install doredore` (npm)
+- **Ruby/Rails**: `gem install doredore` (RubyGems)
+- **Standalone**: `cargo install doredore-server` (Docker/Binary)
 
 ## Phase 1: プロジェクトセットアップ
 
 - [ ] Workspace 構造の作成
-  - [ ] `rag-enricher-core/` (Rust コアライブラリ)
-  - [ ] `rag-enricher-py/` (Python バインディング)
-  - [ ] `rag-enricher-js/` (Node.js バインディング)
-  - [ ] `rag-enricher-rb/` (Ruby バインディング)
-  - [ ] `rag-enricher-server/` (スタンドアロンサーバー)
+  - [ ] `doredore-core/` (Rust コアライブラリ)
+  - [ ] `doredore-py/` (Python バインディング)
+  - [ ] `doredore-js/` (Node.js バインディング)
+  - [ ] `doredore-rb/` (Ruby バインディング)
+  - [ ] `doredore-server/` (スタンドアロンサーバー)
   - [ ] `admin-ui/` (管理画面 - 共通)
 
 - [ ] 各言語の設定ファイル
   - [ ] `Cargo.toml` (workspace 設定)
   - [ ] `pyproject.toml` (Python/maturin)
   - [ ] `package.json` (Node.js)
-  - [ ] `rag-enricher.gemspec` (Ruby)
+  - [ ] `doredore.gemspec` (Ruby)
   - [ ] `.gitignore`, `LICENSE`, `README.md`
 
 ## Phase 2: Rustコア実装
@@ -98,8 +98,8 @@
 
 ### 3.1 Python バインディング (PyO3)
 
-#### 実装 (`rag-enricher-py/src/lib.rs`)
-- [ ] `RAGEnricher` クラスの実装
+#### 実装 (`doredore-py/src/lib.rs`)
+- [ ] `Doredore` クラスの実装
 - [ ] 初期化メソッド (`__init__`)
 - [ ] コレクション管理メソッド
 - [ ] ドキュメント管理メソッド
@@ -126,9 +126,9 @@
 - [ ] **Option B**: WASM (ブラウザ対応、ポータブル)
 - [ ] **Option C**: ハイブリッド (両方提供)
 
-#### 実装 (`rag-enricher-js/`)
+#### 実装 (`doredore-js/`)
 - [ ] TypeScript 型定義 (`index.d.ts`)
-- [ ] `RAGEnricher` クラスの実装
+- [ ] `Doredore` クラスの実装
 - [ ] 初期化メソッド
 - [ ] コレクション管理メソッド
 - [ ] ドキュメント管理メソッド
@@ -148,9 +148,9 @@
 
 ### 3.3 Ruby バインディング (FFI)
 
-#### 実装 (`rag-enricher-rb/`)
+#### 実装 (`doredore-rb/`)
 - [ ] C-ABI エクスポート (Rust側)
-- [ ] Ruby FFI ラッパー (`lib/rag_enricher.rb`)
+- [ ] Ruby FFI ラッパー (`lib/doredore.rb`)
 - [ ] `RagEnricher` クラスの実装
 - [ ] コレクション管理メソッド
 - [ ] ドキュメント管理メソッド
@@ -163,7 +163,7 @@
 - [ ] Concern/Mixin パターン
 
 #### パッケージング
-- [ ] `rag-enricher.gemspec` 設定
+- [ ] `doredore.gemspec` 設定
 - [ ] RubyGems 公開準備
 - [ ] プリビルドバイナリの配布
 
@@ -242,27 +242,27 @@
 
 ## Phase 6: テスト
 
-### 6.1 Rust ユニットテスト (`rag-enricher-core/tests/`)
+### 6.1 Rust ユニットテスト (`doredore-core/tests/`)
 - [ ] `test_core.rs` - コア機能テスト
 - [ ] `test_database.rs` - データベース操作テスト
 - [ ] `test_embedding.rs` - Embedding テスト
 - [ ] `test_search.rs` - 検索精度テスト
 - [ ] `test_performance.rs` - パフォーマンステスト
 
-### 6.2 Python テスト (`rag-enricher-py/tests/`)
+### 6.2 Python テスト (`doredore-py/tests/`)
 - [ ] `test_api.py` - Python API テスト
 - [ ] `test_integration.py` - 統合テスト
 - [ ] `test_errors.py` - エラーケーステスト
 - [ ] pytest 設定
 
-### 6.3 Node.js/TypeScript テスト (`rag-enricher-js/tests/`)
+### 6.3 Node.js/TypeScript テスト (`doredore-js/tests/`)
 - [ ] `api.test.ts` - JavaScript API テスト
 - [ ] `integration.test.ts` - 統合テスト
 - [ ] `errors.test.ts` - エラーケーステスト
 - [ ] Jest または Vitest 設定
 
-### 6.4 Ruby テスト (`rag-enricher-rb/spec/`)
-- [ ] `rag_enricher_spec.rb` - Ruby API テスト
+### 6.4 Ruby テスト (`doredore-rb/spec/`)
+- [ ] `doredore_spec.rb` - Ruby API テスト
 - [ ] `integration_spec.rb` - 統合テスト
 - [ ] `errors_spec.rb` - エラーケーステスト
 - [ ] RSpec 設定
@@ -403,7 +403,7 @@
 
 ## 依存関係
 
-### Rust (`rag-enricher-core/Cargo.toml`)
+### Rust (`doredore-core/Cargo.toml`)
 ```toml
 [dependencies]
 # データベース
@@ -423,14 +423,14 @@ anyhow = "1.0"
 thiserror = "1.0"
 ```
 
-### Python (`rag-enricher-py/pyproject.toml`)
+### Python (`doredore-py/pyproject.toml`)
 ```toml
 [build-system]
 requires = ["maturin>=1.0,<2.0"]
 build-backend = "maturin"
 
 [project]
-name = "rag-enricher"
+name = "doredore"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Rust",
@@ -438,14 +438,14 @@ classifiers = [
 ]
 ```
 
-### Node.js (`rag-enricher-js/package.json`)
+### Node.js (`doredore-js/package.json`)
 ```json
 {
-  "name": "rag-enricher",
+  "name": "doredore",
   "version": "0.1.0",
   "type": "module",
   "napi": {
-    "name": "rag-enricher",
+    "name": "doredore",
     "triples": {}
   },
   "devDependencies": {
@@ -454,10 +454,10 @@ classifiers = [
 }
 ```
 
-### Ruby (`rag-enricher-rb/rag-enricher.gemspec`)
+### Ruby (`doredore-rb/doredore.gemspec`)
 ```ruby
 Gem::Specification.new do |spec|
-  spec.name          = "rag-enricher"
+  spec.name          = "doredore"
   spec.version       = "0.1.0"
   spec.authors       = ["Your Name"]
   spec.summary       = "Lightweight RAG library"
@@ -469,7 +469,7 @@ end
 ## ディレクトリ構成（最終形）
 
 ```
-rag-enricher/
+doredore/
 ├── Cargo.toml                    # Workspace 設定
 ├── README.md
 ├── LICENSE
@@ -480,7 +480,7 @@ rag-enricher/
 │       ├── nodejs.yml
 │       └── ruby.yml
 │
-├── rag-enricher-core/            # Rust コアライブラリ
+├── doredore-core/            # Rust コアライブラリ
 │   ├── Cargo.toml
 │   ├── src/
 │   │   ├── lib.rs
@@ -494,17 +494,17 @@ rag-enricher/
 │   │       └── mod.rs
 │   └── tests/
 │
-├── rag-enricher-py/              # Python バインディング
+├── doredore-py/              # Python バインディング
 │   ├── Cargo.toml
 │   ├── pyproject.toml
 │   ├── src/
 │   │   └── lib.rs                # PyO3 バインディング
 │   ├── tests/
 │   └── python/
-│       └── rag_enricher/
+│       └── doredore/
 │           └── __init__.pyi
 │
-├── rag-enricher-js/              # Node.js バインディング
+├── doredore-js/              # Node.js バインディング
 │   ├── Cargo.toml
 │   ├── package.json
 │   ├── src/
@@ -512,13 +512,13 @@ rag-enricher/
 │   ├── index.d.ts
 │   └── tests/
 │
-├── rag-enricher-rb/              # Ruby バインディング
-│   ├── rag-enricher.gemspec
+├── doredore-rb/              # Ruby バインディング
+│   ├── doredore.gemspec
 │   ├── lib/
-│   │   └── rag_enricher.rb       # FFI ラッパー
+│   │   └── doredore.rb       # FFI ラッパー
 │   └── spec/
 │
-├── rag-enricher-server/          # スタンドアロンサーバー
+├── doredore-server/          # スタンドアロンサーバー
 │   ├── Cargo.toml
 │   ├── src/
 │   │   └── main.rs

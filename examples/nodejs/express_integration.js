@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Express + RAG Enricher Integration Example
+ * Express + doredore Integration Example
  *
  * This example shows how to build a REST API server with Express
  * that provides RAG-powered search and question-answering endpoints.
@@ -21,7 +21,7 @@
 
 const express = require('express');
 const cors = require('cors');
-const { RAGEnricher } = require('rag-enricher');
+const { Doredore } = require('doredore');
 
 // ============================================================================
 // Setup
@@ -34,14 +34,14 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Initialize RAG Enricher
-const rag = new RAGEnricher(
+// Initialize doredore
+const rag = new Doredore(
   './knowledge.db',
   'bge-small-en-v1.5',
   null
 );
 
-console.log('✅ RAGEnricher initialized');
+console.log('✅ Doredore initialized');
 
 // ============================================================================
 // API Endpoints
@@ -286,7 +286,7 @@ app.post('/api/collections', (req, res) => {
  * Health check endpoint
  */
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'rag-enricher-api' });
+  res.json({ status: 'ok', service: 'doredore-api' });
 });
 
 // ============================================================================
@@ -296,7 +296,7 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
   console.log();
   console.log('='.repeat(60));
-  console.log('RAG Enricher API Server');
+  console.log('doredore API Server');
   console.log('='.repeat(60));
   console.log();
   console.log(`🚀 Server running on http://localhost:${PORT}`);

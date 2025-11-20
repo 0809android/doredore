@@ -18,7 +18,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+
 lib64/
 parts/
 sdist/
@@ -73,7 +73,7 @@ package-lock.json
 yarn.lock
 
 # Maturin
-.cargo/
+
 
 # Cache
 .cache/

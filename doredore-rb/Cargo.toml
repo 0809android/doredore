@@ -1,0 +1,24 @@
+[package]
+name = "doredore-rb"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# Our core library
+doredore-core = { path = "../doredore-core" }
+
+# JSON serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# C string handling
+libc = "0.2"
+
+[profile.release]
+lto = true
+strip = true
+opt-level = 3

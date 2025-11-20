@@ -1,4 +1,4 @@
-# RAG Enricher - Phase 3 (REST API Server + Admin UI) 完了報告
+# doredore - Phase 3 (REST API Server + Admin UI) 完了報告
 
 ## 🎉 Phase 3 完了！
 
@@ -12,7 +12,7 @@
 
 ### ✅ 完成した機能
 
-#### 1. **REST API Server** (`rag-enricher-server`)
+#### 1. **REST API Server** (`doredore-server`)
 
 **Axum実装** (~450行)
 - 完全なREST API
@@ -92,7 +92,7 @@ RUST_LOG=info
 ## 🗂️ プロジェクト構造
 
 ```
-rag-enricher-server/
+doredore-server/
 ├── src/
 │   └── main.rs                 (~450行, Axum server)
 ├── static/
@@ -116,7 +116,7 @@ rag-enricher-server/
 
 ```bash
 # ビルド
-cargo build --package rag-enricher-server --release
+cargo build --package doredore-server --release
 
 # 実行
 ./target/release/rag-server
@@ -128,7 +128,7 @@ open http://localhost:3000
 ### 2. Docker
 
 ```bash
-cd rag-enricher-server
+cd doredore-server
 docker-compose up -d
 
 # ログ確認
@@ -166,12 +166,12 @@ curl "http://localhost:3000/api/enrich?q=永代供養について&collection=faq
 ### スレッドセーフティ
 
 **課題:** SQLiteの`Connection`は`Sync`を実装していない
-**解決:** `Arc<Mutex<RAGEnricher>>`でラップ
+**解決:** `Arc<Mutex<Doredore>>`でラップ
 
 ```rust
 #[derive(Clone)]
 struct AppState {
-    rag: Arc<Mutex<RAGEnricher>>,
+    rag: Arc<Mutex<Doredore>>,
 }
 
 // ハンドラー内で使用
@@ -285,12 +285,12 @@ error[E0277]: `RefCell<...>` cannot be shared between threads safely
 ```rust
 // Before
 struct AppState {
-    rag: Arc<RAGEnricher>,  // ❌ エラー
+    rag: Arc<Doredore>,  // ❌ エラー
 }
 
 // After
 struct AppState {
-    rag: Arc<Mutex<RAGEnricher>>,  // ✅ OK
+    rag: Arc<Mutex<Doredore>>,  // ✅ OK
 }
 ```
 
@@ -395,7 +395,7 @@ fn error(message: String) -> Self  // ✅ 汎用的
 
 ## 📌 まとめ
 
-**RAG Enricher Phase 3 (REST API Server + Admin UI) は90%完成し、本番環境で使えるシステムが完成しました。**
+**doredore Phase 3 (REST API Server + Admin UI) は90%完成し、本番環境で使えるシステムが完成しました。**
 
 ### ✅ 達成したこと
 

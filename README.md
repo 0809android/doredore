@@ -1,4 +1,4 @@
-# RAG Enricher
+# doredore
 
 **軽量・高速な RAG (Retrieval-Augmented Generation) ライブラリ**
 
@@ -28,13 +28,13 @@ LangChainよりもシンプルで、既存のAIチャットボットに簡単に
 ### Python
 
 ```bash
-pip install target/wheels/rag_enricher-0.3.0-*.whl
+pip install target/wheels/doredore-0.3.0-*.whl
 ```
 
 ### Node.js / TypeScript
 
 ```bash
-cd rag-enricher-js
+cd doredore-js
 npm install
 npm run build
 ```
@@ -42,20 +42,20 @@ npm run build
 ### Ruby
 
 ```bash
-cd rag-enricher-rb
+cd doredore-rb
 cargo build --release
-# librag_enricher_rb.dylib を利用
+# libdoredore_rb.dylib を利用
 ```
 
 ### REST API Server
 
 ```bash
 # 直接実行
-cargo build --package rag-enricher-server --release
+cargo build --package doredore-server --release
 ./target/release/rag-server
 
 # または Docker
-cd rag-enricher-server
+cd doredore-server
 docker-compose up -d
 ```
 
@@ -64,10 +64,10 @@ docker-compose up -d
 ### 3行で始める
 
 ```python
-from rag_enricher import PyRAGEnricher as RAGEnricher
+from doredore import PyDoredore as Doredore
 
 # 初期化
-rag = RAGEnricher("./knowledge.db")
+rag = Doredore("./knowledge.db")
 
 # ドキュメント追加
 rag.create_collection("faq", "よくある質問")
@@ -81,11 +81,11 @@ print(result.context)  # LLMに渡すコンテキスト
 ### OpenAI と組み合わせる
 
 ```python
-from rag_enricher import PyRAGEnricher as RAGEnricher
+from doredore import PyDoredore as Doredore
 from openai import OpenAI
 
 # RAGとOpenAIを初期化
-rag = RAGEnricher("./knowledge.db")
+rag = Doredore("./knowledge.db")
 openai_client = OpenAI()
 
 # ナレッジを追加
@@ -228,7 +228,7 @@ count = rag.export_csv(
 
 ### REST API
 
-サーバーのREADMEを参照: [`rag-enricher-server/README.md`](rag-enricher-server/README.md)
+サーバーのREADMEを参照: [`doredore-server/README.md`](doredore-server/README.md)
 
 ## 🧠 サポートするEmbeddingモデル
 
@@ -242,7 +242,7 @@ count = rag.export_csv(
 
 ```python
 # モデル指定
-rag = RAGEnricher(
+rag = Doredore(
     db_path="./knowledge.db",
     model="multilingual-e5-base",  # 日本語におすすめ
     cache_dir="./models"
@@ -285,7 +285,7 @@ rag = RAGEnricher(
 │              ┌─────────────────────────┐                    │
 │              │     Rust Core           │                    │
 │              │  ┌──────────────────┐   │                    │
-│              │  │   RAG Enricher   │   │                    │
+│              │  │   doredore   │   │                    │
 │              │  ├──────────────────┤   │                    │
 │              │  │ • Collections    │   │                    │
 │              │  │ • Documents      │   │                    │
@@ -370,24 +370,24 @@ rag = RAGEnricher(
 
 ```bash
 # Rust コアのみ
-cargo build --release --package rag-enricher-core
+cargo build --release --package doredore-core
 
 # Python バインディング + Wheelパッケージ
-cd rag-enricher-py
+cd doredore-py
 maturin build --release  # ARM64
 maturin build --release --target x86_64-apple-darwin  # x86_64
 
 # Node.js バインディング (Rust 1.91+ 必要)
-cd rag-enricher-js
+cd doredore-js
 npm install
 npm run build
 
 # Ruby バインディング
-cd rag-enricher-rb
+cd doredore-rb
 cargo build --release
 
 # REST API サーバー
-cd rag-enricher-server
+cd doredore-server
 cargo build --release
 ```
 
@@ -395,15 +395,15 @@ cargo build --release
 
 ```bash
 # Rust コアテスト
-cargo test --package rag-enricher-core
+cargo test --package doredore-core
 
 # Python 統合テスト
-cd rag-enricher-py
+cd doredore-py
 python test_simple.py
 python examples/python/basic.py
 
 # Ruby テスト
-cd rag-enricher-rb
+cd doredore-rb
 ruby examples/ruby/basic.rb
 
 # API サーバー起動
@@ -448,7 +448,7 @@ MIT License - 詳細は [LICENSE](LICENSE) を参照
 
 ## 🎉 プロジェクトの現状
 
-**RAG Enricher v0.3.0** は、以下の達成により **Production-Ready** 状態に達しました：
+**doredore v0.3.0** は、以下の達成により **Production-Ready** 状態に達しました：
 
 ✅ **マルチ言語対応**: Python、Node.js、Ruby、REST API の4つの方法で利用可能
 ✅ **完全なバインディング**: PyO3、NAPI-rs、FFI による各言語ネイティブサポート
@@ -461,4 +461,4 @@ MIT License - 詳細は [LICENSE](LICENSE) を参照
 
 ---
 
-**RAG Enricher** - シンプル、高速、軽量なRAGライブラリ 🚀
+**doredore** - シンプル、高速、軽量なRAGライブラリ 🚀

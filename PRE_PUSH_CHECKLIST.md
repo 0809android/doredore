@@ -30,19 +30,19 @@
 cargo check --workspace
 
 # Pythonバインディング
-cd rag-enricher-py && cargo check
+cd doredore-py && cargo check
 
 # Node.jsバインディング
-cd rag-enricher-js && cargo check
+cd doredore-js && cargo check
 
 # Rubyバインディング
-cd rag-enricher-rb && cargo check
+cd doredore-rb && cargo check
 ```
 
 ### 2. テスト実行
 ```bash
 # コアのテスト
-cd rag-enricher-core && cargo test
+cd doredore-core && cargo test
 
 # 検索モードテスト
 cargo test test_three_search_modes

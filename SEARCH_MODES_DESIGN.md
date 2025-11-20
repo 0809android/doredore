@@ -124,9 +124,9 @@ LIMIT ?
 
 ### Python API
 ```python
-from rag_enricher import RAGEnricher, SearchMode
+from doredore import Doredore, SearchMode
 
-rag = RAGEnricher("./db.db")
+rag = Doredore("./db.db")
 
 # 1. Semantic Search（意味検索）
 results = rag.search(
@@ -150,9 +150,9 @@ results = rag.search(
 
 ### Node.js API
 ```javascript
-const { RAGEnricher, SearchMode } = require('rag-enricher');
+const { Doredore, SearchMode } = require('doredore');
 
-const rag = new RAGEnricher('./db.db');
+const rag = new Doredore('./db.db');
 
 // Hybrid Search
 const results = rag.search(
@@ -226,7 +226,7 @@ fn combine_scores(
 
 ### Phase 4: API更新
 1. ✅ SearchMode enum追加
-2. ✅ RAGEnricher::search に mode パラメータ追加
+2. ✅ Doredore::search に mode パラメータ追加
 3. ✅ Python/Node.js/Rubyバインディング更新
 4. ✅ REST API更新
 

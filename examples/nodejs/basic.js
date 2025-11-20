@@ -1,27 +1,27 @@
 #!/usr/bin/env node
 /**
- * RAG Enricher - Basic Node.js Example
+ * doredore - Basic Node.js Example
  *
- * This example demonstrates the basic usage of RAG Enricher in Node.js:
+ * This example demonstrates the basic usage of doredore in Node.js:
  * - Creating a collection
  * - Adding documents
  * - Searching for similar documents
  * - Enriching queries with context
  */
 
-const { RAGEnricher } = require('rag-enricher');
+const { Doredore } = require('doredore');
 
 console.log('='.repeat(60));
-console.log('RAG Enricher - Basic Node.js Example');
+console.log('doredore - Basic Node.js Example');
 console.log('='.repeat(60));
 console.log();
 
 // ============================================================================
-// 1. Initialize RAGEnricher
+// 1. Initialize Doredore
 // ============================================================================
 
-console.log('1. Initializing RAGEnricher...');
-const rag = new RAGEnricher(
+console.log('1. Initializing Doredore...');
+const rag = new Doredore(
   './knowledge.db',
   'bge-small-en-v1.5',  // Fast, small model (384 dimensions)
   null                   // Use default cache directory

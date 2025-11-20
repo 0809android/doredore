@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  rag-server:
+    build:
+      context: ..
+      dockerfile: doredore-server/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_PATH=/data/knowledge.db
+      - EMBEDDING_MODEL=bge-small-en-v1.5
+      - HOST=0.0.0.0
+      - PORT=3000
+      - RUST_LOG=info
+    volumes:
+      - rag-data:/data
+      - ./static:/app/static:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  rag-data:
+    driver: local

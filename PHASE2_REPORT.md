@@ -1,4 +1,4 @@
-# RAG Enricher - Phase 2 (Multi-Language Support) 完了報告
+# doredore - Phase 2 (Multi-Language Support) 完了報告
 
 ## 🎉 Phase 2 完了！
 
@@ -12,10 +12,10 @@
 
 ### ✅ 完成した機能
 
-#### 1. **Node.js/TypeScript バインディング** (`rag-enricher-js`)
+#### 1. **Node.js/TypeScript バインディング** (`doredore-js`)
 
 **NAPI-rs 実装** (~400行)
-- `RAGEnricher` クラス (完全なNode.js API)
+- `Doredore` クラス (完全なNode.js API)
 - TypeScript型定義ファイル (index.d.ts)
 - 全てのCRUD操作
 - 検索・エンリッチ機能
@@ -30,7 +30,7 @@
 
 **プロジェクト構造:**
 ```
-rag-enricher-js/
+doredore-js/
 ├── src/
 │   └── lib.rs         (~400行, NAPI-rs bindings)
 ├── Cargo.toml
@@ -39,12 +39,12 @@ rag-enricher-js/
 └── build.rs
 ```
 
-#### 2. **Ruby バインディング** (`rag-enricher-rb`)
+#### 2. **Ruby バインディング** (`doredore-rb`)
 
 **FFI 実装** (~400行)
 - C-ABI エクスポート (Rust側)
 - Ruby FFIラッパー
-- `RAGEnricher::Client` クラス
+- `Doredore::Client` クラス
 - 全てのCRUD操作
 - 検索・エンリッチ機能
 - CSV操作
@@ -52,18 +52,18 @@ rag-enricher-js/
 
 **プロジェクト構造:**
 ```
-rag-enricher-rb/
+doredore-rb/
 ├── src/
 │   └── lib.rs              (~400行, C-ABI bindings)
 ├── lib/
-│   └── rag_enricher.rb     (~270行, Ruby FFI wrapper)
+│   └── doredore.rb     (~270行, Ruby FFI wrapper)
 ├── Cargo.toml
-├── rag_enricher.gemspec
+├── doredore.gemspec
 └── README.md
 ```
 
 **ビルド成果物:**
-- `librag_enricher_rb.dylib` (19MB, macOS ARM64)
+- `libdoredore_rb.dylib` (19MB, macOS ARM64)
 - ✅ コンパイル成功
 
 #### 3. **Node.js サンプルコード** (`examples/nodejs`)
@@ -118,7 +118,7 @@ rag-enricher-rb/
 ## 🗂️ プロジェクト構造
 
 ```
-rag-enricher/
+doredore/
 ├── Cargo.toml                        ✅ (4言語対応)
 ├── README.md                         ✅
 ├── TODO.md                           ✅
@@ -126,7 +126,7 @@ rag-enricher/
 ├── PHASE2_REPORT.md                  ✅ Phase 2 (本ファイル)
 ├── LICENSE                           ✅
 │
-├── rag-enricher-core/                ✅ Rustコア (~800行)
+├── doredore-core/                ✅ Rustコア (~800行)
 │   └── src/
 │       ├── lib.rs
 │       ├── error.rs
@@ -137,21 +137,21 @@ rag-enricher/
 │           ├── search.rs
 │           └── enricher.rs
 │
-├── rag-enricher-py/                  ✅ Pythonバインディング (~350行)
+├── doredore-py/                  ✅ Pythonバインディング (~350行)
 │   ├── src/lib.rs
 │   ├── pyproject.toml
 │   └── README.md
 │
-├── rag-enricher-js/                  ✅ Node.jsバインディング (~400行)
+├── doredore-js/                  ✅ Node.jsバインディング (~400行)
 │   ├── src/lib.rs
 │   ├── package.json
 │   ├── index.d.ts
 │   └── Cargo.toml
 │
-├── rag-enricher-rb/                  ✅ Rubyバインディング (~670行)
+├── doredore-rb/                  ✅ Rubyバインディング (~670行)
 │   ├── src/lib.rs
-│   ├── lib/rag_enricher.rb
-│   ├── rag_enricher.gemspec
+│   ├── lib/doredore.rb
+│   ├── doredore.gemspec
 │   ├── Cargo.toml
 │   └── README.md
 │
@@ -176,11 +176,11 @@ rag-enricher/
 │
 └── target/
     ├── wheels/                       ✅ Python
-    │   ├── rag_enricher-*-arm64.whl
-    │   └── rag_enricher-*-x86_64.whl
+    │   ├── doredore-*-arm64.whl
+    │   └── doredore-*-x86_64.whl
     │
     └── release/                      ✅ Ruby
-        └── librag_enricher_rb.dylib (19MB)
+        └── libdoredore_rb.dylib (19MB)
 ```
 
 ---
@@ -206,9 +206,9 @@ rag-enricher/
 
 ### Python (PyO3)
 ```python
-from rag_enricher import PyRAGEnricher as RAGEnricher
+from doredore import PyDoredore as Doredore
 
-rag = RAGEnricher("./knowledge.db", model="bge-small-en-v1.5")
+rag = Doredore("./knowledge.db", model="bge-small-en-v1.5")
 rag.create_collection("faq", "よくある質問")
 rag.add_document("内容...", collection="faq", metadata={"category": "FAQ"})
 results = rag.search("質問", collection="faq", top_k=3)
@@ -217,9 +217,9 @@ enrich = rag.enrich("質問", collection="faq", top_k=3)
 
 ### Node.js/TypeScript (NAPI-rs)
 ```javascript
-const { RAGEnricher } = require('rag-enricher');
+const { Doredore } = require('doredore');
 
-const rag = new RAGEnricher('./knowledge.db', 'bge-small-en-v1.5');
+const rag = new Doredore('./knowledge.db', 'bge-small-en-v1.5');
 rag.createCollection('faq', 'よくある質問');
 rag.addDocument('内容...', 'faq', { category: 'FAQ' });
 const results = rag.search('質問', 'faq', null, 3);
@@ -228,9 +228,9 @@ const enrich = rag.enrich('質問', 'faq', null, 3);
 
 ### Ruby (FFI)
 ```ruby
-require 'rag_enricher'
+require 'doredore'
 
-rag = RAGEnricher::Client.new('./knowledge.db', model: 'bge-small-en-v1.5')
+rag = Doredore::Client.new('./knowledge.db', model: 'bge-small-en-v1.5')
 rag.create_collection('faq', description: 'よくある質問')
 rag.add_document('内容...', collection: 'faq', metadata: { category: 'FAQ' })
 results = rag.search('質問', collection: 'faq', top_k: 3)
@@ -359,13 +359,13 @@ let metadata_json = if metadata.is_null() {
 ## 📚 ドキュメント
 
 ### 完成済み
-- ✅ `rag-enricher-rb/README.md` - Ruby完全ガイド
-- ✅ `rag-enricher-py/README.md` - Python完全ガイド
+- ✅ `doredore-rb/README.md` - Ruby完全ガイド
+- ✅ `doredore-py/README.md` - Python完全ガイド
 - ✅ `examples/*/` - 全サンプルコード
 - ✅ TypeScript型定義 (JSDoc付き)
 
 ### TODO
-- [ ] `rag-enricher-js/README.md` - Node.js完全ガイド
+- [ ] `doredore-js/README.md` - Node.js完全ガイド
 - [ ] `docs/multi-language-guide.md` - 言語間比較
 - [ ] `docs/deployment.md` - デプロイガイド
 
@@ -440,7 +440,7 @@ let metadata_json = if metadata.is_null() {
 
 ## 📌 まとめ
 
-**RAG Enricher Phase 2 (Multi-Language Support) は95%完成し、Node.js、TypeScript、Ruby対応が実装されました。**
+**doredore Phase 2 (Multi-Language Support) は95%完成し、Node.js、TypeScript、Ruby対応が実装されました。**
 
 ### ✅ 達成したこと
 1. Node.js/TypeScriptバインディング完全実装

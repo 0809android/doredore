@@ -1,7 +1,7 @@
 /**
  * Next.js API Route Example - RAG + OpenAI Chat Endpoint
  *
- * This API route combines RAG Enricher with OpenAI to provide
+ * This API route combines doredore with OpenAI to provide
  * a complete question-answering endpoint with retrieval-augmented generation.
  *
  * Usage:
@@ -12,7 +12,7 @@
  *   OPENAI_API_KEY
  */
 
-import { RAGEnricher } from 'rag-enricher';
+import { Doredore } from 'doredore';
 import OpenAI from 'openai';
 import path from 'path';
 
@@ -23,7 +23,7 @@ let openaiInstance = null;
 function getRAG() {
   if (!ragInstance) {
     const dbPath = path.join(process.cwd(), 'data', 'knowledge.db');
-    ragInstance = new RAGEnricher(dbPath, 'bge-small-en-v1.5');
+    ragInstance = new Doredore(dbPath, 'bge-small-en-v1.5');
   }
   return ragInstance;
 }

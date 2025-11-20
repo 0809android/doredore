@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 =begin
-RAG Enricher + Rails Integration Example
+doredore + Rails Integration Example
 
-This example shows how to integrate RAG Enricher with a Rails application.
+This example shows how to integrate doredore with a Rails application.
 
 File location: app/controllers/rag_controller.rb
 
 Installation:
   1. Add to Gemfile:
        gem 'ffi'
-       gem 'rag-enricher', path: 'path/to/rag-enricher-rb'
+       gem 'doredore', path: 'path/to/doredore-rb'
 
-  2. Add to config/initializers/rag_enricher.rb:
-       require 'rag_enricher'
-       RAG = RAGEnricher::Client.new(
+  2. Add to config/initializers/doredore.rb:
+       require 'doredore'
+       RAG = Doredore::Client.new(
          Rails.root.join('db', 'knowledge.db').to_s,
          model: 'bge-small-en-v1.5'
        )
@@ -240,7 +240,7 @@ class ImportCsvJob
 
   def perform(file_path, collection = 'default')
     # Initialize RAG (or use global instance)
-    rag = RAGEnricher::Client.new(
+    rag = Doredore::Client.new(
       Rails.root.join('db', 'knowledge.db').to_s,
       model: 'bge-small-en-v1.5'
     )

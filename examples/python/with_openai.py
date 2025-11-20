@@ -1,12 +1,12 @@
 """
-RAG Enricher + OpenAI 統合サンプル
+doredore + OpenAI 統合サンプル
 
-RAG Enricher で取得したコンテキストを使って、
+doredore で取得したコンテキストを使って、
 OpenAI の GPT モデルで回答を生成します。
 """
 
 import os
-from rag_enricher import PyRAGEnricher as RAGEnricher
+from doredore import PyDoredore as Doredore
 
 # OpenAI のインストールが必要: pip install openai
 try:
@@ -17,7 +17,7 @@ except ImportError:
     exit(1)
 
 
-def setup_knowledge_base(rag: RAGEnricher):
+def setup_knowledge_base(rag: Doredore):
     """ナレッジベースをセットアップ"""
     print("📚 ナレッジベースをセットアップ中...\n")
 
@@ -60,7 +60,7 @@ def setup_knowledge_base(rag: RAGEnricher):
     print("✅ ナレッジベースのセットアップ完了\n")
 
 
-def chat_with_rag(rag: RAGEnricher, openai_client: OpenAI, question: str):
+def chat_with_rag(rag: Doredore, openai_client: OpenAI, question: str):
     """RAG + OpenAI でチャット"""
 
     print(f"💭 質問: {question}\n")
@@ -136,8 +136,8 @@ def main():
         return
 
     # 初期化
-    print("🚀 RAG Enricher を初期化中...\n")
-    rag = RAGEnricher(
+    print("🚀 doredore を初期化中...\n")
+    rag = Doredore(
         db_path="./knowledge_with_ai.db",
         model="bge-small-en-v1.5"
     )
